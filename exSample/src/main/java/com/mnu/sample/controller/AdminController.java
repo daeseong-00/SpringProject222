@@ -13,7 +13,7 @@ public class AdminController {
 	private static final Logger log =
 			LoggerFactory.getLogger(AdminController.class);
 
-	//공지사항 리스트
+	//관리자 로그인
 	@GetMapping("admin_login")
 	public String adminLogin() {
 		log.info("Admin Call : admin_login");
@@ -21,4 +21,11 @@ public class AdminController {
 		return "Admin/admin_login";
 	}
 
+	//관리자 목로(리스트)
+	@GetMapping("admin_list")
+	public String adminList() {
+		log.info("Admin Call : admin_list");
+		
+		return "Admin/admin_list";
+	}
 }

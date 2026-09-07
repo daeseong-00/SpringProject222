@@ -45,7 +45,8 @@ body {
 					</b></td>
 				</tr>
 			</table><br>
-			<form name="notice" method="post" action="/Admin/Notice/notice_write">
+			<form name="notice" method="post" action="/Admin/Notice/notice_modify">
+			<input type="hidden" name="idx" value="${notice.idx}">
 			<input type="hidden" name="page" value="${page}">
 			<table width="60%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
@@ -56,11 +57,11 @@ body {
 							</tr>
 							<tr>
 								<td width="20%" align="center" bgcolor="EcECEC"><strong>제목</strong></td>
-								<td bgcolor="ffffff"><input name="subject" type="text" value=""  style="width:400; height:18; padding:2; border:1 solid slategray" size="120"></td>
+								<td bgcolor="ffffff"><input name="subject" type="text" value="${notice.subject}"  style="width:400; height:18; padding:2; border:1 solid slategray" size="120"></td>
 							</tr>
 							<tr bgcolor="EcECEC">
 								<td align="center" bgcolor="EcECEC"><strong>내용</strong></td>
-								<td bgcolor="ffffff"><textarea name="contents" cols="10" rows="10" style="width:440; height:200; padding:2; border:1 solid slategray" tabindex="2"></textarea></td>
+								<td bgcolor="ffffff"><textarea name="contents" cols="10" rows="10" style="width:440; height:200; padding:2; border:1 solid slategray" tabindex="2">${notice.contents}</textarea></td>
 							</tr>
 						</table>
 					</td>
@@ -70,7 +71,7 @@ body {
 			</form>
 			<table width="60%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td align=center><a href="javascript:notice_send()"><b>[등록]</b></a>&nbsp; <a href="javascript:history.back()"><b>[취소]</b></a></td>
+					<td align=center><a href="javascript:notice_send()"><b>[수정]</b></a>&nbsp; <a href="javascript:history.back()"><b>[취소]</b></a></td>
 				</tr>
 			</table>
 		</td>

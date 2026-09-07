@@ -275,4 +275,10 @@ public class PdsController {
 	}
 
 */	
+	//삭제처리 알림
+	@GetMapping("pds_delete_pro")
+	public void pdsDeletePass() {
+		log.info("pdsDeletePro() . OK.......");
+	}
+
 }
