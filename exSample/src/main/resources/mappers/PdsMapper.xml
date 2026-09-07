@@ -63,5 +63,9 @@
 	<delete id="pdsDelete">
 		delete from tbl_pds where idx=#{idx} and pass=#{pass}
 	</delete>
+	<!-- 첨부파일 검색 -->
+	<select id="pdsSearchFile" resultType="string">
+		select filename from tbl_pds where idx = #{idx}
+	</select>
 
 </mapper>

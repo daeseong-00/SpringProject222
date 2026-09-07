@@ -17,7 +17,7 @@ public interface PdsMapper {
 	public int pdsCountSearch(String search, String key);
 	
 	//3. 검색조건 + 페이지 인덱싱 리스트
-	public List<PdsDTO> pdsListPage(PageSearchDTO pageSearchDTO);
+	public List<PdsDTO> pdsList(PageSearchDTO pageSearchDTO);
 
 	//5. 글 등록 
 	public int pdsWrite(PdsDTO pdsDTO);
@@ -33,4 +33,6 @@ public interface PdsMapper {
 	//8. 삭제처리
 	public int pdsDelete(PdsDTO pdsDTO);
 	
+	//8. 삭제처리 첨부파일 검색
+	public String pdsSearchFile(int idx);
 }
