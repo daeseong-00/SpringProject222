@@ -18,7 +18,7 @@
  <table width="900" >
    <tr>
      <td width="19%" rowspan="4" valign="bottom" bgcolor="#000000">
-       <a href=""><img src="/Images/img/jsl_logo1.png" width="150" height="80" border="0"></a>
+       <a href="/"><img src="/Images/img/jsl_logo1.png" width="150" height="80" border="0"></a>
        <font style="font-size:9pt;color:white;font-family:돋움"><b>Total 136,489
        <font color="yellow"></font>
        | Now 178

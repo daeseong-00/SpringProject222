@@ -17,6 +17,12 @@ import jakarta.servlet.http.HttpServletResponse;
 public class PdsService {
 	@Autowired
 	private PdsMapper pdsMapper;
+
+	// 최근 글 n개 검색
+	public List<PdsDTO> pdsTopList(int num){
+		return pdsMapper.pdsTopList(num);
+	}
+
 	//1. 전체 글수 카운트
 	public int pdsCount() {
 		return pdsMapper.pdsCount();

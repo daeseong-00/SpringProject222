@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mnu.sample.domain.BoardDTO;
 import com.mnu.sample.domain.NoticeDTO;
 import com.mnu.sample.domain.PageSearchDTO;
 import com.mnu.sample.mapper.NoticeMapper;
@@ -14,6 +15,11 @@ public class NoticeService {
 	//Mapper 주입
 	@Autowired
 	private NoticeMapper noticeMapper;
+
+	// 최근 글 n개 검색
+	public List<NoticeDTO> noticeTopList(int num){
+		return noticeMapper.noticeTopList(num);
+	}
 	
 	//1. 전체 공지사항 카운트
 	public int noticeCount() {

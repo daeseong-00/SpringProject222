@@ -18,6 +18,11 @@ public class BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
 	
+	// 최근 글 n개 검색
+	public List<BoardDTO> boardTopList(int num){
+		return boardMapper.boardTopList(num);
+	}
+
 	//1. 전체 글수 카운트
 	public int boardCount() {
 		//int row = boardMapper.boardCount();

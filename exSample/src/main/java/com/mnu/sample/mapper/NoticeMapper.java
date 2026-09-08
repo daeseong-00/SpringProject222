@@ -9,6 +9,9 @@ import com.mnu.sample.domain.PageSearchDTO;
 
 @Mapper
 public interface NoticeMapper {
+	// 최근 글 n개 검색
+	public List<NoticeDTO> noticeTopList(int num);
+	
 	//1. 전체 공지사항 카운트
 	public int noticeCount();
 	

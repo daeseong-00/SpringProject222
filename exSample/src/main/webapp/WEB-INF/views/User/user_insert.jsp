@@ -18,6 +18,7 @@ $(function(){
 	$("#emailcheck").hide();
 	$("#email").hide(); // 숨기기
 
+	
 	//라디오 버튼 선택시
 	$("input[name='mode']").change(function() {
         if ($("#mode1").is(":checked")) {
@@ -33,10 +34,7 @@ $(function(){
         }
     });
 	
-	// 등록 버튼 클릭시
 	
-
-
 	//핸드폰 인증하기 버튼 클릭시
 	$("#phoneBtn1").click(function(){
 		$("#smscheck").show();
@@ -60,7 +58,47 @@ $(function(){
 		}
 	});
 
+	//id 중복검사(Ajax))
+	$("#userid").change(function(){
+		var userid = $("#userid").val();
+		//alert("AAA");
+		
+		$.ajax({
+			url:"/User/user_idCheck",
+			type:"post",
+			data:{"userid":userid},
+			success:function(result){
+				if(result==0){
+					userID_c.innerHTML="사용 가능한 아이디입니다";
+				}else{
+					userID_c.innerHTML="이미 사용중인 아이디입니다";
+					$("#userid").val('');
+					$("#userid").focus();
+				}
+			}
+		});
+	});
 
+	//비밀번호 확인
+	$("#repasswd").change(function(){
+		if($("#passwd").val() == $("#repasswd").val()){
+			repasswd_c.innerHTML="확인 되었습니다."
+		}else{
+			repasswd_c.innerHTML="비밀번호를 다시 입력하세요"
+				$("#repasswd").val('');
+				$("#repasswd").focus();
+		}
+	});
+	
+	//SMS 보인 인증(인증번호 발송)
+	
+	//SMS 보인 인증(인증번호 확인)
+
+	
+	//email 본인인증
+
+	
+	
 }); //$(function()끝
 
 
