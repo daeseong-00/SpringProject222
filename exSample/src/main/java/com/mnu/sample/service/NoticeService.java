@@ -30,11 +30,16 @@ public class NoticeService {
 		return noticeMapper.noticeList(pageSearchDTO);
 	}
 	
-	//4. idx에 해당하는 글 목록(View, modify) 사용
+	//4-1. idx에 해당하는 글 목록(View, modify) 사용
+	public void noticeHits(int idx) {
+		noticeMapper.noticeHits(idx);
+	}
+	
+	//4-2. idx에 해당하는 글 목록(View, modify) 사용
 	public NoticeDTO noticeSelect(int idx) {
 		return noticeMapper.noticeSelect(idx);
 	}
-	
+
 	//5. 공지사항 등록(write) 처리
 	public int noticeWrite(NoticeDTO noticeDTO) {
 		return noticeMapper.noticeWrite(noticeDTO);

@@ -18,7 +18,10 @@ public interface NoticeMapper {
 	//3. 공지사항 목록(검색+페이지) 겸용
 	public List<NoticeDTO> noticeList(PageSearchDTO pageSearchDTO);
 	
-	//4. idx에 해당하는 글 목록(View, modify) 사용
+	//4-1. 특정글 검색(view, 수정)
+	public void noticeHits(int idx);//조회수 증가
+	
+	//4-2. idx에 해당하는 글 목록(View, modify) 사용
 	public NoticeDTO noticeSelect(int idx);
 	
 	//5. 공지사항 등록(write) 처리

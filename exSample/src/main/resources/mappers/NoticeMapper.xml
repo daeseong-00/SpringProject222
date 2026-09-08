@@ -40,8 +40,12 @@
  	                  offset #{offset} rows fetch next #{maxlist} rows only 	
 	
 	</select>
+	<!--4-1. idx에 해당하는 글 조회수 증가-->
+	<update id="noticeHits">
+		update tbl_notice set readcnt = readcnt + 1 where idx = #{idx}
+	</update>
 	
-	<!--4. idx에 해당하는 글 목록(View, modify) 사용-->
+	<!--4-2. idx에 해당하는 글 목록(View, modify) 사용-->
 	<select id="noticeSelect" resultType="com.mnu.sample.domain.NoticeDTO">
 		select * from tbl_notice where idx = #{idx}
 	</select>
