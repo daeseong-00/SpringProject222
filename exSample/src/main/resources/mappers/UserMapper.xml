@@ -6,5 +6,21 @@
 	     select count(*) from tbl_user where userid=#{userid}
 	</select>
 	
+	<!-- 회원등록 -->
+	<insert id="userWrite">
+		insert into tbl_user(name, userid, passwd, tel, email)
+						values(#{name},#{userid},#{passwd},#{tel},#{email})
+	</insert>
+	
+	<!-- 회원로그인  -->
+	<select id="userLogin" resultType="com.mnu.sample.domain.UserDTO">
+		select * from tbl_user where userid=#{userid} and passwd=#{passwd}
+	</select>
+	
+	<!-- 로그인날 자 업데이트 -->
+	<update id="userLastTimeUpdate">
+		update tbl_user set last_time=sysdate where userid=#{userid}
+	</update>
+	
 	
 </mapper>

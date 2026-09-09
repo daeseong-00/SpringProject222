@@ -16,18 +16,18 @@ $(function(){
 
 	$("#smscheck").hide();
 	$("#emailcheck").hide();
-	$("#email").hide(); // 숨기기
+	$("#emailshow").hide(); // 숨기기
 
 	
 	//라디오 버튼 선택시
 	$("input[name='mode']").change(function() {
         if ($("#mode1").is(":checked")) {
             $("#phone").show();
-            $("#email").hide();
+            $("#emailshow").hide();
            	$("#smscheck").hide();
            	$("#emailcheck").hide();
         } else {
-            $("#email").show();
+            $("#emailshow").show();
             $("#phone").hide();
            	$("#smscheck").hide();
            	$("#emailcheck").hide();
@@ -91,13 +91,79 @@ $(function(){
 	});
 	
 	//SMS 보인 인증(인증번호 발송)
+	$("#phoneBtn1").click(function(){
+		//전화번호유효성 검사
+		if($("#tel").val()==''){
+			alert("전화번호를 입력하세요");
+			$("#tel").focus();
+			return;
+		}
+		var tel = $("#tel").val();
+		$.ajax({
+			url:"/User/user_sms",
+			type:"post",
+			data:{"tel":tel},
+			success:function(result){
+				phone_c.innerHTML="인증번호가 전송되었습니다";
+				$("#usersms").val(result);
+			}
+		});
+		$("#smscheck").show();
+	});
 	
 	//SMS 보인 인증(인증번호 확인)
-
+	$("#phoneBtn3").click(function(){
+		if($("#usersms").val() == $("#resms").val()){
+			resms_c.innerHTML="인증되었습니다";
+			$("#resms").prop("readonly", true);//읽기전용으로 변경
+		}else{
+			resms_c.innerHTML="인증번호가 일치하지 않습니다. 다시입력하세요";
+			$("#resms").val('');
+			$("#resms").focus();
+		}
+	});
 	
+
 	//email 본인인증
 
-	
+	// 유효성 검사후 등록하기
+	//유효성 검사
+	$("#userSend").click(function(){
+		if($("#name").val()==''){
+			alert("이름을 입력하세요.");
+			$("#name").focus();
+			return;
+		}
+		//ID검사
+		if($("#userid").val()==''){
+			alert("id를 입력하세요.");
+			$("#userid").focus();
+			return;
+		}
+		//Pass
+		if($("#passwd").val()==''){
+			alert("비밀번호를 입력하세요.");
+			$("#passwd").focus();
+			return;
+		}
+		if($("#repasswd").val()==''){
+			alert("비밀번호확인을 입력하세요.");
+			$("#repasswd").focus();
+			return;
+		}
+		//tel
+		if($("#tel").val()==''){
+			alert("전화번호를 입력하세요.");
+			$("#tel").focus();
+			return;
+		}
+		$("#user").submit();
+	});
+
+	//가입취소
+	$("#userCancle").click(function(){
+		history.back();
+	});
 	
 }); //$(function()끝
 
@@ -120,7 +186,8 @@ $(function(){
 	
   </td>
   <td width="80%" valign="top">&nbsp;<img src="/Images/img/title1.gif" ><br>    
-	<form name="user" method=post action="user_insert">
+	<form name="user" id="user" method=post action="/User/user_insert">
+	<input type="hidden" id="usersms" name="usersms">
 	<table border=0 cellpadding=0 cellspacing=0 width=730 valign=top>
 		<tr><td align=center><br>                            
 			<table cellpadding=0 cellspacing=0 border=0 width=650 align=center>       
@@ -192,14 +259,14 @@ $(function(){
                     				<font id="resms_c" size="2" color="red">&nbsp;</font>
 								</td>
 							</tr>			
-							<tr id="email">
+							<tr id="emailshow">
 								<TD BGCOLOR="#EFF4F8">&nbsp;E-mail
                 					<font color=red>&nbsp;</font>
 								</td>
 								<td bgcolor=WHITE valign=middle>
-									<input type="text" name="email1" size=13 maxlength="15">
-									@ <input type="text" name="email2" size=13 maxlength="15">
-									<select name="email3">
+									<input type="text" name="email1" id="email1" size=13 maxlength="15">
+									@ <input type="text" name="email2" id="email2" size=13 maxlength="15">
+									<select name="email3" id="email3">
 		      							<option value="0">직접입력</option>
 		      							<option value="naver.com">naver.com</option>
 		      							<option value="daum.net">daum.net</option>
@@ -232,8 +299,8 @@ $(function(){
 							</tr>
 							<tr bgcolor=#ffffff>
 								<td colspan=3 align=center>
-									<img src="/Images/img/u_bt06.gif" vspace=3 border=0 name=img3>
-									<img src="/Images/img/u_bt05.gif" border=0 hspace=10 vspace=3 name=img4>
+									<img src="/Images/img/u_bt06.gif" vspace=3 border=0 name=img3 id="userSend">
+									<img src="/Images/img/u_bt05.gif" border=0 hspace=10 vspace=3 name=img4 id="userCancle">
 								</td>
 							</tr>
 						</table> 

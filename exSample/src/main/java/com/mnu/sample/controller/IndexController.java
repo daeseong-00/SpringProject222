@@ -13,7 +13,7 @@ import com.mnu.sample.service.NoticeService;
 import com.mnu.sample.service.PdsService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 public class IndexController {
 	//로그 출력용
 	private static final Logger log =

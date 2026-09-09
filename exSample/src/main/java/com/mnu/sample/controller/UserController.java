@@ -4,13 +4,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mnu.sample.domain.UserDTO;
 import com.mnu.sample.service.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("User")
@@ -25,12 +30,33 @@ public class UserController {
 	
 	//로그인 폼
 	@GetMapping("user_login")
-	public String userLogin() {
-		log.info("User Call : login");
-		
-		return "User/user_login";
+	public String userLogin(HttpSession session) {
+		log.info("User Call : user_login");
+		if(session.getAttribute("user") == null) {
+			return "User/user_login";//로그인 페이지로 이동
+		}else {
+			//로그인한 사용자 일경우
+			return "redirect:/";//컨트로러
+		}
 	}
 	
+	//로그인처리
+	@PostMapping("user_login")
+	public String userLoginPro(UserDTO userDTO, HttpServletRequest request) {
+		log.info("User Call : user_login_ok");
+		
+		UserDTO uDTO = userService.userLogin(userDTO);
+		
+		if(uDTO != null) {//로그인 성공시
+			//최근 로그인 날자 업데이트
+			userService.userLastTimeUpdate(uDTO.getUserid());
+			//세션 설정
+			request.getSession().setAttribute("user", uDTO);
+			request.getSession().setMaxInactiveInterval(10*60);//10분
+		}
+		
+		return "User/user_login_ok";//경고창
+	}
 	//로그아웃 처리
 	@GetMapping("user_logout")
 	public String userLogout() {
@@ -56,14 +82,27 @@ public class UserController {
 		return String.valueOf(row);
 	}
 	
-	
 	//보인인증(SMS)
+	@ResponseBody
+	@PostMapping("user_sms")
+	public String smsSend(@RequestParam("tel") String tel) {
+		String tempNum = userService.sendSMS(tel);
+		
+		log.info("인증번호 : " + tempNum);
+		return tempNum;
+	}
 	
 	
 	//보인인증(email)
 	
 	//회원가입처리
-	
+	@PostMapping("user_insert")
+	public String userInsertPro(UserDTO userDTO, Model model) {
+		log.info("User Call : user_insert_pro");
+		
+		model.addAttribute("row", userService.userWrite(userDTO));
+		return "User/user_insert_pro";//가입유무 출력 후 로그인 페이지로 이동하는 JSP
+	}
 	
 	//정보수정 폼
 	@GetMapping("user_modify")

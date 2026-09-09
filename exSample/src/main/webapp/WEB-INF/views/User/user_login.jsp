@@ -11,10 +11,24 @@
      td.content { padding:10px; line-height:1.6em; text-align:justify; }
      a.list { text-decoration:none;color:black;font-size:10pt; }
    </style>
-
+<script>
+	function user_login(){
+		if(!user.userid.value){
+			alert("아이디를 입력하세요");
+			user.userid.focus();
+			return;
+		}
+		if(!user.passwd.value){
+			alert("비밀번호를 입력하세요");
+			user.passwd.focus();
+			return;
+		}
+		user.submit();
+	}
+</script>
 </HEAD>
 <body bgcolor="#FFFFFF" text="#000000" leftmargin=0 
-  topmargin=0 onLoad='document.fname.user_id.focus();'>
+  topmargin=0 onLoad='document.user.userid.focus();'>
 
 <table border="0" width="800">
 <tr>
@@ -29,7 +43,7 @@
   <TD width=100>&nbsp;</td>
   <TD>
     <table width="583" border="0" cellspacing="0" cellpadding="0" height="265">
-	  <form name=fname method=post action=""">
+	  <form name="user" method=post action="/User/user_login">
 	    <tr>
 		  <td height="298"> 
 		    <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -62,7 +76,7 @@
 							  <td>: 
 								<input type=password name="passwd" size=14 maxlength=12 STYLE="WIDTH:155">
 							  </td>
-							  <td><input type=image src="/Images/img/login.gif" border=0 align=absmiddle></td>
+							  <td><img src="/Images/img/login.gif" border=0 align=absmiddle onClick="user_login()"></td>
 							</tr>
 						  </table>
 						</td>
