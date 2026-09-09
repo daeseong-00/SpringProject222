@@ -8,8 +8,8 @@
 	
 	<!-- 회원등록 -->
 	<insert id="userWrite">
-		insert into tbl_user(name, userid, passwd, tel, email)
-						values(#{name},#{userid},#{passwd},#{tel},#{email})
+		insert into tbl_user(name, userid, passwd, tel, email, gubun)
+						values(#{name},#{userid},#{passwd},#{tel},#{email}, #{gubun})
 	</insert>
 	
 	<!-- 회원로그인  -->

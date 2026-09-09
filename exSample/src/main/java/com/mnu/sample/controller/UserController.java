@@ -59,10 +59,11 @@ public class UserController {
 	}
 	//로그아웃 처리
 	@GetMapping("user_logout")
-	public String userLogout() {
+	public String userLogout(HttpSession session) {
 		log.info("User Call : logout");
+		session.invalidate();
 		
-		return "redirect:";//index로 이동
+		return "redirect:/";//index로 이동
 	}
 		
 	//회원가입 폼

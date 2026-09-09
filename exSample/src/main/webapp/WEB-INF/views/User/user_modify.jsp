@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 <title>회원등록</title>
@@ -13,11 +13,17 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 <script type="text/javascript">
 $(function(){
-
-	$("#smscheck").hide();
-	$("#emailcheck").hide();
-	$("#emailshow").hide(); // 숨기기
-
+	var gubun = ${user.gubun};
+	if(gubun==1){
+		$("#smscheck").hide();
+		$("#emailcheck").hide();
+		$("#emailshow").hide(); // 숨기기
+	}else{
+		$("#phone").hide();
+		$("#smscheck").hide();
+		$("#emailshow").show(); //보이기		
+		$("#emailcheck").hide();
+	}
 	
 	//라디오 버튼 선택시
 	$("input[name='mode']").change(function() {
@@ -29,7 +35,6 @@ $(function(){
         } else {
             $("#emailshow").show();
             $("#phone").hide();
-           	$("#smscheck").hide();
            	$("#emailcheck").hide();
         }
     });
@@ -186,7 +191,7 @@ $(function(){
 	
   </td>
   <td width="80%" valign="top">&nbsp;<img src="/Images/img/title1.gif" ><br>    
-	<form name="user" id="user" method=post action="/User/user_insert">
+	<form name="user" id="user" method=post action="/User/user_modify">
 	<input type="hidden" id="usersms" name="usersms">
 	<table border=0 cellpadding=0 cellspacing=0 width=730 valign=top>
 		<tr><td align=center><br>                            
@@ -204,7 +209,7 @@ $(function(){
 							<tr>
 								<td width=110 bgcolor=#EFF4F8>&nbsp;회원 성명<font color=red>&nbsp;*</font></td>
 								<TD BGCOLOR=WHITE>
-									<input type=text id=name name=name size=16 maxlength=20 value="" placeholder="성명은 빈칸없이 입력하세요.">
+									<input type=text id=name name=name size=16 maxlength=20 value="${user.name}" placeholder="성명은 빈칸없이 입력하세요.">
 								</td>
 							</tr>
 							<tr>
@@ -213,7 +218,7 @@ $(function(){
 									<table cellspacing=0 cellpadding=0>
 										<tr>
 											<td align=absmiddle>
-												<input type=text id=userid name=userid size=12 maxlength=16 value="" style="width:120">
+												<input type=text id=userid name=userid size=12 maxlength=16 value="${user.userid}" style="width:120">
 											</td>
 											<td id="userID_c">
                   								[ 5~16자 이내의 영문이나 숫자만 가능합니다. ]
@@ -237,14 +242,14 @@ $(function(){
 							</tr>
 							<tr>
 								<TD BGCOLOR="#EFF4F8">&nbsp;인증 방법 선택<font color=red>&nbsp;*</font></td>
-								<TD BGCOLOR=WHITE><input type=radio id="mode1" name=mode value="1" checked>핸드폰
-									<input type=radio id="mode2" name="mode" value="2" >이메일
+								<TD BGCOLOR=WHITE><input type=radio id="mode1" name=mode value="1" ${user.gubun=='1' ? 'checked':'' }>핸드폰
+									<input type=radio id="mode2" name="mode" value="2" ${user.gubun=='2' ? 'checked':'' }>이메일
 								</td>
 							</tr>
 							<tr id="phone">
 								<TD BGCOLOR="#EFF4F8">&nbsp;전화번호<font color=red>&nbsp;*</font></td>
 								<TD BGCOLOR=WHITE>
-									<input type=text id=tel name=tel size=13 maxlength=13 value="" placeholder="휴대전화번호 (-제외)">
+									<input type=text id=tel name=tel size=13 maxlength=13 value="${user.tel}" placeholder="휴대전화번호 (-제외)">
 									<input type="button" id="phoneBtn1" value="인증번호받기">
 									<font id="phone_c" size="2" color="red">&nbsp;</font>
 								</td>
@@ -299,8 +304,8 @@ $(function(){
 							</tr>
 							<tr bgcolor=#ffffff>
 								<td colspan=3 align=center>
-									<img src="/Images/img/u_bt06.gif" vspace=3 border=0 name=img3 id="userSend">
-									<img src="/Images/img/u_bt05.gif" border=0 hspace=10 vspace=3 name=img4 id="userCancle">
+									<input type="button" value="수정하기" id="userSend">
+									<input type="button" value="취소하기" id="userCancle">
 								</td>
 							</tr>
 						</table> 

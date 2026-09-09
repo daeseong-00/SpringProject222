@@ -30,7 +30,7 @@
      <p align="center"><font color="white" size="2"><b><a href="/User/user_login" class="white">로그인</A></b></font></p>
    </c:if>  
    <c:if test="${!empty user}">  
-     <p align="center"><font color="white" size="2"><b><a href="/User/user-logout" class="white">로그아웃</A></b></font></p>
+     <p align="center"><font color="white" size="2"><b><a href="/User/user_logout" class="white">로그아웃</A></b></font></p>
    </c:if>  
      </td>
      <td  width="10%" onmouseover="style.backgroundColor='#2772D3'" onmouseout="style.backgroundColor=''">
