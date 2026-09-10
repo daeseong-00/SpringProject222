@@ -8,10 +8,10 @@ public class UserDTO {
 	private String userid;
 	private String passwd;
 	private String tel;
+	private String email;
 	private String email1;
 	private String email2;
 	private String email3;
-	private String email;
 
 	private String first_time;
 	private String last_time;

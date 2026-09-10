@@ -102,6 +102,11 @@
 			<version>4.3.0</version>
 		</dependency>
 		
+		<!-- Email 인증 구현 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+        		<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 		
 	</dependencies>
 

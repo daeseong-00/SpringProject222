@@ -34,30 +34,6 @@ $(function(){
         }
     });
 	
-	
-	//핸드폰 인증하기 버튼 클릭시
-	$("#phoneBtn1").click(function(){
-		$("#smscheck").show();
-
-	});
-
-	//이메일 인증하기 버튼 클릭시
-	$("#emailBtn1").click(function(){
-		$("#emailcheck").show();
-
-	});
-
-	//이메일 체크(직접입력 또는 선택)
-	$("#email3").on("change",function(){
-		if($("#email3").prop("selectedIndex") !=0 ){
-			$('#email2').prop('readonly', true);//읽기 전용으로
-			$('#email2').val($("#email3").val());
-		}else{
-			$('#email2').prop('readonly', false);//읽기 전용 해제
-			$('#email2').val('');
-		}
-	});
-
 	//id 중복검사(Ajax))
 	$("#userid").change(function(){
 		var userid = $("#userid").val();
@@ -123,8 +99,53 @@ $(function(){
 		}
 	});
 	
-
+	//이메일 체크(직접입력 또는 선택)
+	$("#email3").on("change",function(){
+		if($("#email3").prop("selectedIndex") !=0 ){
+			$('#email2').prop('readonly', true);//읽기 전용으로
+			$('#email2').val($("#email3").val());
+		}else{
+			$('#email2').prop('readonly', false);//읽기 전용 해제
+			$('#email2').val('');
+		}
+	});
+	
 	//email 본인인증
+	$("#emailBtn1").click(function(){
+		//이메일 유효성 검사 검사
+		if($("#email1").val()=='' || $("#email2").val()==''){
+			alert("이메일이 올바르지 않습니다");
+			$("#email1").focus();
+			return;
+		}
+		
+		var email = $("#email1").val() + "@" + $("#email1").val();
+		$("#email").val(email);//form 태그의 email에 값 설정
+		
+		$.ajax({
+			url:"/User/user_email",
+			type:"post",
+			data:{"email":email},
+			success:function(result){
+				email_c.innerHTML="인증번호가 전송되었습니다";
+				$("#useremail").val(result);
+			}
+		});
+		$("#emailcheck").show();
+	});
+	
+	//email 보인 인증(인증번호 확인)
+	$("#emailBtn3").click(function(){
+		if($("#useremail").val() == $("#reemail").val()){
+			reemail_c.innerHTML="인증되었습니다";
+			$("#reemail").prop("readonly", true);//읽기전용으로 변경
+		}else{
+			reemail_c.innerHTML="인증번호가 일치하지 않습니다. 다시입력하세요";
+			$("#reemail").val('');
+			$("#reemail").focus();
+		}
+	});
+	
 
 	// 유효성 검사후 등록하기
 	//유효성 검사
@@ -187,7 +208,10 @@ $(function(){
   </td>
   <td width="80%" valign="top">&nbsp;<img src="/Images/img/title1.gif" ><br>    
 	<form name="user" id="user" method=post action="/User/user_insert">
-	<input type="hidden" id="usersms" name="usersms">
+	<input type="hidden" id="usersms" name="usersms"><!-- 전송된 인증번호 보관용 -->
+	<input type="hidden" id="useremail" name="useremail"><!-- 전송된 이메일 인증번호 보관용  -->
+	<input type="hidden" id="email" name="email"><!-- @로 결합된 이메일 전송용  -->
+	
 	<table border=0 cellpadding=0 cellspacing=0 width=730 valign=top>
 		<tr><td align=center><br>                            
 			<table cellpadding=0 cellspacing=0 border=0 width=650 align=center>       
@@ -253,7 +277,6 @@ $(function(){
 								<TD BGCOLOR="#EFF4F8">&nbsp;인증번호<font color=red>&nbsp;*</font></td>
 								<TD BGCOLOR=WHITE>
 									<input type=text id=resms name="resms" size=13 maxlength=13 placeholder="인증번호를 입력하세요">
-									<input type="button" id="phoneBtn2" value="재발송">
                     				<font id="resms_r" size="2" color="red">&nbsp;</font>
                     				<input type="button" value="인증" id="phoneBtn3">
                     				<font id="resms_c" size="2" color="red">&nbsp;</font>
@@ -274,13 +297,13 @@ $(function(){
 		      							<option value="gmail.com">gmail.com</option>
 		  							   </select>
 									 <input type="button" id="emailBtn1" value="인증하기">
+									 <font id="email_c" size="2" color="red">&nbsp;</font>
 								</td>
 							</tr>
 							<tr id="emailcheck">
 								<TD BGCOLOR="#EFF4F8">&nbsp;이메일 인증번호<font color=red>&nbsp;*</font></td>
 								<TD BGCOLOR=WHITE>
 									<input type=text id=reemail name="reemail" size=13 maxlength=13 placeholder="이메일 인증번호를 입력하세요">
-									<input type="button" id="emailBtn2" value="재발송">
                     				<font id="reemail_r" size="2" color="red">&nbsp;</font>
                     				<input type="button" value="인증" id="emailBtn3">
                     				<font id="reemail_c" size="2" color="red">&nbsp;</font>
