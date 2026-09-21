@@ -5,11 +5,20 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+# oracle			
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@localhost:1521/freepdb1
     username: SAMPLE
     password: 1234
+
+# mysql
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/db_named
+#   url=jdbc:mysql://jsl-mysql.chkfysd27pci.ap-northeast-2.rds.amazonaws.com:33306/sample
+#    username: user_id
+#    password: user_pw
 
 # mapper.xml  위치 : resources폴더안에 mappers 폴더를 생성
 mybatis:
