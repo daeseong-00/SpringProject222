@@ -89,6 +89,7 @@ public class UserController {
 		model.addAttribute("row", userService.userWrite(userDTO));
 		return "User/user_insert_pro";//가입유무 출력 후 로그인 페이지로 이동하는 JSP
 	}
+
 	
 	//정보수정 폼
 	@GetMapping("user_modify")
@@ -98,6 +99,7 @@ public class UserController {
 		return "User/user_modify";
 	}
 
+	
 	//정보수정 처리
 	
 	//회원탈퇴(삭제)
