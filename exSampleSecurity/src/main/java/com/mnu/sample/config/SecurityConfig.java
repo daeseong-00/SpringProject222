@@ -20,10 +20,10 @@ public class SecurityConfig {
 		)
 		.formLogin(login ->login
 				.loginPage("/Join/user_login")
-				.loginProcessingUrl("/")
+				.loginProcessingUrl("/Join/user_login")
 				.usernameParameter("userid")
 				.passwordParameter("passwd")
-				.failureUrl("/Join/login_error")
+				.failureUrl("/Join/user_error")
 				
 		);
 		
