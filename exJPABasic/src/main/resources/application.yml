@@ -1,0 +1,18 @@
+# oracle      
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521/freepdb1
+    username: SAMPLE
+    password: 1234
+# jpa test
+  jpa:
+# 1. 오라클용 방언(Dialect)으로 변경
+    database-platform: org.hibernate.dialect.OracleDialect 
+# 2. SQL 출력 및 포맷 설정 (H2와 동일하게 적용 가능)
+    show-sql: true
+    properties:
+      hibernate:
+      format_sql: true
+      use_sql_comments: true
+
