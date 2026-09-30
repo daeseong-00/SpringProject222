@@ -5,8 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mnu.sample.dto.BoardRequestDTO;
+import com.mnu.sample.repository.BoardRepository;
 import com.mnu.sample.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,5 +32,24 @@ public class BoardController {
 		return "/Board/board_list";
 	}
 
+	//등록 폼
+	@GetMapping("board_write")
+	public String boardWrite() {
+		log.info("Board Call : board_write");
+		return "/Board/board_write";
+		
+	}
+	//등록처리
+	@PostMapping("board_write")
+	public String boardWritePro(BoardRequestDTO board) {
+		log.info("Board Call : board_write_pro");
+		int row = boardService.boardWrite(board);
+		if(row==0) {
+			return "Biard/board_write";
+		}else {
+			return "redirect:board_list";
+		}
+		
+	}
 	
 }

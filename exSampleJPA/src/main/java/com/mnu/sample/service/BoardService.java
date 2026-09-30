@@ -1,6 +1,6 @@
 package com.mnu.sample.service;
 
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mnu.sample.dto.BoardRequestDTO;
 import com.mnu.sample.dto.BoardResponseDTO;
+import com.mnu.sample.entity.BoardEntity;
 import com.mnu.sample.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,8 @@ public class BoardService {
 	public List<BoardResponseDTO> boardList(){
 		return boardRepository.findAll()
 				.stream()
+				// Board 엔티티의 getIdx()를 기준으로 내림차순(reversed) 정렬
+	            .sorted(Comparator.comparing(BoardEntity::getIdx).reversed()) 
 				.map(BoardResponseDTO::new)
 				.collect(Collectors.toList());
 		// BoardRepository결과로 넘어온 BoardEntity의 Stream을 map을 통해 BoardReponseDto로 변환 

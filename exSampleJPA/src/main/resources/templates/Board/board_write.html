@@ -5,7 +5,15 @@
 <html>
    <head><title>게시판 작성</title>
     <link rel="stylesheet" type="text/css" href="/stylesheet.css">
+<script>
+	function board_send(){
+		alert("글을 등록합니다");
+		
+		board.submit();
+	}
+	
 
+</script>
 </head>
  <body topmargin="0" leftmargin="0">
  <table border="0" width="800">
@@ -22,7 +30,7 @@
      <font size="2"> - 글쓰기</font><p>
      <img src="/Images/img/bullet-03.gif"><font size="2" face="돋움" color="orange"> 잠깐</font> &nbsp;
      <img src="/Images/img/bullet-02.gif"><font size="2" face="돋움">는 필수 입력 사항입니다.</font><p>
-     <form method="post">
+     <form name="board" method="post" action="/Board/board_write">
 
 	  <table border="0">
        <tr>
@@ -57,8 +65,8 @@
           <td align="right">&nbsp;</td>
           <td><font size="2">&nbsp;</font></td>
           <td>
-                     <a href="#"><img src="/Images/img/save.gif" border=0></a>&nbsp;&nbsp;&nbsp;
-                     <a href="#"><img src="/Images/img/cancle.gif" border=0></a>
+              <img src="/Images/img/save.gif" border=0 onClick="board_send()">&nbsp;&nbsp;&nbsp;
+              <img src="/Images/img/cancle.gif" border=0 onClick="history.back()">
           </td>
         </tr>
       </table>

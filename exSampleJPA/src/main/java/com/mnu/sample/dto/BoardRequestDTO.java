@@ -1,13 +1,13 @@
 package com.mnu.sample.dto;
 
-import java.time.LocalDateTime;
-
 import com.mnu.sample.entity.BoardEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 @NoArgsConstructor
 @Getter
+@Setter
 public class BoardRequestDTO {
 	private String name;
 	private String pass;
