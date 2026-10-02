@@ -1,11 +1,13 @@
 package com.mnu.sample.test;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.mnu.sample.dto.DeptResponseDTO;
+import com.mnu.sample.entity.DeptEntity;
 import com.mnu.sample.repository.DeptRepository;
 
 
@@ -92,7 +94,7 @@ public class DeptRepositoryTest {
 		DeptResponseDTO resDTO = new DeptResponseDTO(entity);
 		System.out.println("등록된 부서명 : " + resDTO.getDno());
 	}
-*/	
+	
 	//수정 테스트
 	@Test
 	@Transactional
@@ -102,5 +104,60 @@ public class DeptRepositoryTest {
 		//스프링 부트 테스트 환경에서 @Transactional을 붙였을 때 데이터가 업데이트되지 않는 것처럼 보이는 이유는 
 		//스프링이 테스트 완료 후 데이터를 자동으로 롤백(Rollback) 시키기 때문
 	}
+*/
+	//카운트 테스트
+	@Test
+	public void countByDnameTest() {
+		int count1 = deptRepository.countByDname("인사과");
+		long count2 = deptRepository.countByDnameContaining("인사");
+		
+		System.out.println("count1 : " + count1);
+		System.out.println("count2 : " + count2);
+	}
 	
+	//검색 테스트
+	//지역명 검색(WHERE dname = ?)
+	@Test
+	public void findByLocTest() {
+		List<DeptEntity> dList = deptRepository.findByLoc("목포");
+		
+		System.out.println("동일값");
+		for(DeptEntity entity : dList) {
+			DeptResponseDTO dto = new DeptResponseDTO(entity);
+			System.out.print(dto.getDno() + "  ");
+			System.out.print(dto.getDname() + "  ");
+			System.out.println(dto.getLoc());
+			
+		}
+	}
+
+	//지역명 검색(where loc like '%keyword%')
+	@Test
+	public void findByLocContainingTest() {
+		List<DeptEntity> dList = deptRepository.findByLocContaining("목");
+		
+		System.out.println("포함된값");
+		for(DeptEntity entity : dList) {
+			DeptResponseDTO dto = new DeptResponseDTO(entity);
+			System.out.print(dto.getDno() + "  ");
+			System.out.print(dto.getDname() + "  ");
+			System.out.println(dto.getLoc());
+			
+		}
+	}
+
+	@Test
+	public void findByDnameContainingDescTest() {
+		List<DeptEntity> dList = deptRepository.findByDnameContainingOrderByDnoDesc("인사");
+		
+		System.out.println("부서번호 내림차순");
+		for(DeptEntity entity : dList) {
+			DeptResponseDTO dto = new DeptResponseDTO(entity);
+			System.out.print(dto.getDno() + "  ");
+			System.out.print(dto.getDname() + "  ");
+			System.out.println(dto.getLoc());
+			
+		}
+	}
+
 }
