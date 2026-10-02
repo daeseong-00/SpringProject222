@@ -5,13 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mnu.sample.dto.BoardRequestDTO;
 import com.mnu.sample.dto.BoardResponseDTO;
-import com.mnu.sample.repository.BoardRepository;
 import com.mnu.sample.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -62,13 +62,13 @@ public class BoardController {
 		BoardResponseDTO board = boardService.boardView(idx);
 		model.addAttribute("board", board);
 		model.addAttribute("newLineChar", "\n");//ㄱ게시글 내용의 <br> 처리용
-		
+		model.addAttribute("page", 1);//임시
 		return "Board/board_view";
 	}
 	
 	//삭제 폼
 	@GetMapping("board_delete")
-	public String boardDelete() {
+	public String boardDelete(@ModelAttribute("idx") int idx, @ModelAttribute("page") int page) {
 		log.info("Board Call : board_delete");
 		
 		return "Board/board_delete";
