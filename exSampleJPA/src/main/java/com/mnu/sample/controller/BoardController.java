@@ -69,7 +69,7 @@ public class BoardController {
 */
 	//검색 + 페이지 처리 + get+post
 	@GetMapping("board_list")
-	public String boardListSearchPage(@RequestParam(value="search", required=false) String search, 
+	public String boardListSearchPage(@ModelAttribute("page") int page, @RequestParam(value="search", required=false) String search, 
 										@RequestParam(value="key", required=false) String key, 
 											@PageableDefault(size=10) Pageable pageable, Model model) {
 
@@ -83,14 +83,14 @@ public class BoardController {
 	
 	//등록 폼
 	@GetMapping("board_write")
-	public String boardWrite() {
+	public String boardWrite(@ModelAttribute("page") int page) {
 		log.info("Board Call : board_write");
 		return "/Board/board_write";
 		
 	}
 	//등록처리
 	@PostMapping("board_write")
-	public String boardWritePro(BoardRequestDTO board) {
+	public String boardWritePro(@ModelAttribute("page") int page, BoardRequestDTO board) {
 		log.info("Board Call : board_write_pro");
 		int row = boardService.boardWrite(board);
 		if(row==0) {
@@ -103,12 +103,12 @@ public class BoardController {
 	
 	//리스트에서 제목 선택시 idx을 이용한 상세보기(view)
 	@GetMapping("board_view")
-	public String boardView(@RequestParam("idx") int idx, Model model) {
+	public String boardView(@RequestParam("idx") int idx, @ModelAttribute("page") int page, Model model) {
 		log.info("Board Call : board_view");
 		BoardResponseDTO board = boardService.boardView(idx);
 		model.addAttribute("board", board);
 		model.addAttribute("newLineChar", "\n");//ㄱ게시글 내용의 <br> 처리용
-		model.addAttribute("page", 1);//임시
+		//model.addAttribute("page", 1);//임시
 		return "Board/board_view";
 	}
 	
@@ -122,7 +122,7 @@ public class BoardController {
 	
 	//삭제처리
 	@PostMapping("board_delete")
-	public String boardDeletePro(@RequestParam("idx") int idx, @RequestParam("pass") String pass, Model model) {
+	public String boardDeletePro(@RequestParam("idx") int idx, @ModelAttribute("page") int page, @RequestParam("pass") String pass, Model model) {
 		log.info("Board Call : board_delete_pro");
 		int row = boardService.boardDelete(idx, pass);
 		model.addAttribute("row", row);
