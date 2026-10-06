@@ -75,7 +75,7 @@ public class BoardService {
 	    );
 	    
 		Page<BoardEntity> page;
-		if(key != null && key.equals("")) {
+		if(key != null && !key.equals("")) {
 			//검색 O
 			page = boardRepository.boardListSearchPage(search, key, pageable);
 		}else {
