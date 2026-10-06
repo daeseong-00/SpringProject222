@@ -82,4 +82,23 @@ public class BoardController {
 		model.addAttribute("row", row);
 		return "Board/board_delete_pro";// 경고 출력용
 	}
+	
+	//수정 폼
+	@GetMapping("board_modify")
+	public String boardModify(@RequestParam("idx") int idx, @ModelAttribute("page") int page, Model model) {
+		log.info("Board Call : board_modify");
+		BoardResponseDTO board = boardService.boardModify(idx);
+		model.addAttribute("board", board);
+
+		return "Board/board_modify";
+	}
+	
+	//수정처리
+	@PostMapping("board_modify")
+	public String boardModifyPro(@RequestParam("idx") int idx, @ModelAttribute("page") int page, BoardRequestDTO board, Model model) {
+		log.info("Board Call : board_modify_pro");
+		
+		model.addAttribute("row", boardService.boardModifyPro(idx, board));
+		return "Board/board_modify_pro";
+	}
 }

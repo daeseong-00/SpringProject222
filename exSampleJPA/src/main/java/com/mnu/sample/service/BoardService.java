@@ -48,9 +48,12 @@ public class BoardService {
 	//상세보기(View)
 	@Transactional
 	public BoardResponseDTO boardView(int idx) {
+		//조회수 증가
+		boardRepository.boardHits(idx);
+		
 		BoardEntity boardEntity = boardRepository.findById(idx)
 				.orElseThrow(()->new IllegalArgumentException("idx 없음"));
-		
+	
 		BoardResponseDTO board = new BoardResponseDTO(boardEntity);
 		return board;
 	}
@@ -59,5 +62,21 @@ public class BoardService {
 	@Transactional
 	public int boardDelete(int idx, String pass) {
 		return boardRepository.boardDelete(idx, pass);
+	}
+
+	//수정폼(modify)
+	@Transactional
+	public BoardResponseDTO boardModify(int idx) {
+		BoardEntity boardEntity = boardRepository.findById(idx)
+				.orElseThrow(()->new IllegalArgumentException("idx 없음"));
+	
+		BoardResponseDTO board = new BoardResponseDTO(boardEntity);
+		return board;
+	}
+	
+	//수정처리
+	@Transactional
+	public int boardModifyPro(int idx, BoardRequestDTO board) {
+		return boardRepository.boardModify(idx, board.getSubject(), board.getContents(), board.getPass());
 	}
 }
