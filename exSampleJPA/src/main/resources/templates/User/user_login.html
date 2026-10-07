@@ -1,6 +1,6 @@
 
 <!-- 메뉴 include -->
-
+<th:block th:replace="~{Include/topmenu}"></th:block>
 <HTML>
 <HEAD>
 <TITLE>로그온</TITLE>
@@ -34,7 +34,7 @@
 <tr>
   <td width="20%"  bgcolor="#ecf1ef" valign="top" style="padding-left:0;">
 	<!--로그인 영역 삽입-->
-	 
+	 <th:block th:replace="~{Include/login_form}"></th:block>
   </td>
   <td width="80%" valign="top">&nbsp;<br>    
 <TABLE width="683" border="0" cellspacing="0" cellpadding="0" height="265"> 
